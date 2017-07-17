@@ -49,7 +49,7 @@ func (c *Camera) Capture() (string, error) {
 	fileName := time.Now().Format(TIME_STAMP) + FILE_TYPE
 	fullPath := filepath.Join(c.savePath, fileName)
 	args = append(args, fullPath)
-	cmd := exec.Command("raspistill", "-o", fullPath)
+	cmd := exec.Command(STILL, OUTFLAG, fullPath)
 	_, err := cmd.StdoutPipe()
 	if err != nil {
 		fmt.Println(err)
