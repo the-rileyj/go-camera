@@ -52,11 +52,11 @@ func (c *Camera) Capture() (string, error) {
   cmd := exec.Command("raspistill", "-o", fullPath)
   _, err := cmd.StdoutPipe()
   if err != nil {
-    fmt.Print(err)
+    fmt.Println(err)
   }
   err = cmd.Start()
   if err != nil {
-    fmt.Print(err)
+    fmt.Println(err)
   }
   cmd.Wait()
   return fullPath, nil
