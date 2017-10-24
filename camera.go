@@ -12,21 +12,25 @@ const (
 	HFLIP      = "-hf"
 	VFLIP      = "-vf"
 	OUTFLAG    = "-o"
-	FILE_TYPE  = ".jpg"
 	TIME_STAMP = "2006-01-02_15:04::05"
 )
 
 type Camera struct {
 	horizontalFlip bool
 	verticalFlip   bool
+	fileName       string
+	fileType       string
 	savePath       string
 }
 
-func New(path string) *Camera {
-	if path == "" {
-		return nil
+func New(path, name, fType string) *Camera {
+	if name == "" {
+		name = time.Now().Format(TIME_STAMP)
 	}
-	return &Camera{false, false, path}
+	if fType == "" {
+		fType = ".jpg"
+	}
+	return &Camera{false, false, name, fType, path}
 }
 
 func (c *Camera) Hflip(b bool) {
@@ -39,17 +43,19 @@ func (c *Camera) Vflip(b bool) {
 
 func (c *Camera) Capture() (string, error) {
 	args := make([]string, 0)
+	args = append(args, OUTFLAG)
+	fullPath := c.fileName
+	if c.savePath != "" {
+		fullPath = filepath.Join(c.savePath, c.fileName)
+	}
+	args = append(args, fullPath)
 	if c.horizontalFlip {
 		args = append(args, HFLIP)
 	}
 	if c.verticalFlip {
 		args = append(args, VFLIP)
 	}
-	args = append(args, OUTFLAG)
-	fileName := time.Now().Format(TIME_STAMP) + FILE_TYPE
-	fullPath := filepath.Join(c.savePath, fileName)
-	args = append(args, fullPath)
-	cmd := exec.Command(STILL, OUTFLAG, fullPath)
+	cmd := exec.Command(STILL, args...)
 	_, err := cmd.StdoutPipe()
 	if err != nil {
 		fmt.Println(err)
