@@ -7,6 +7,7 @@ Interface with the Raspberry Pi camera module with Golang.
     import "github.com/loranbriggs/go-camera"
 
     func main() {
+        folder := "pictures/"
         c := camera.New(folder)
         s, err := t.Camera.Capture()
     }
