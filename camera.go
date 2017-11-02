@@ -12,6 +12,7 @@ const (
 	HFLIP      = "-hf"
 	VFLIP      = "-vf"
 	OUTFLAG    = "-o"
+	PREVIEW    = false
 	TIME_STAMP = "2006-01-02_15:04::05"
 )
 
