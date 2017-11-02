@@ -8,7 +8,8 @@ import (
 )
 
 const (
-	STILL      = "raspistill"
+	PHOTO      = "raspistill"
+	VIDEO      = "raspivid"
 	HFLIP      = "-hf"
 	VFLIP      = "-vf"
 	OUTFLAG    = "-o"
@@ -56,7 +57,7 @@ func (c *Camera) Capture() (string, error) {
 	if c.verticalFlip {
 		args = append(args, VFLIP)
 	}
-	cmd := exec.Command(STILL, args...)
+	cmd := exec.Command(PHOTO, args...)
 	_, err := cmd.StdoutPipe()
 	if err != nil {
 		fmt.Println(err)
