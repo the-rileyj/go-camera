@@ -18,11 +18,9 @@ const (
 )
 
 type Camera struct {
-	horizontalFlip bool
-	verticalFlip   bool
-	fileName       string
-	fileType       string
-	savePath       string
+	simpleCapture, previewPicture, fullScreenPreview, horizontalFlip, verticalFlip            bool
+	px, py, pw, ph, opacity, sharpness, contrast, brightness, saturation, ISO, EV, cu, cv     int
+	finalCom, fileName, fileType, savePath, exposure, awb, imgfx, meteringMode, simpleCommand string
 }
 
 func New(path, name, fType string) *Camera {
@@ -32,15 +30,30 @@ func New(path, name, fType string) *Camera {
 	if fType == "" {
 		fType = ".jpg"
 	}
-	return &Camera{false, false, name, fType, path}
+	return &Camera{horizontalFlip: false, verticalFlip: false, fileName: name, fileType: fType, savePath: path}
 }
 
-func (c *Camera) Hflip(b bool) {
+func (c *Camera) Hflip(b bool) *Camera {
 	c.horizontalFlip = b
+	return c
 }
 
-func (c *Camera) Vflip(b bool) {
+func (c *Camera) Vflip(b bool) *Camera {
 	c.verticalFlip = b
+	return c
+}
+
+func (c *Camera) Preview(b bool) *Camera {
+	c.previewPicture = b
+	return c
+}
+
+func (c *Camera) PreviewSize(x, y, w, h int) *Camera {
+	c.px = x
+	c.py = y
+	c.pw = w
+	c.ph = h
+	return c
 }
 
 func (c *Camera) Capture() (string, error) {
