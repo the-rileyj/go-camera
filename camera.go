@@ -18,9 +18,31 @@ const (
 )
 
 type Camera struct {
-	simpleCapture, previewPicture, fullScreenPreview, horizontalFlip, verticalFlip            bool
-	px, py, pw, ph, opacity, sharpness, contrast, brightness, saturation, ISO, EV, cu, cv     int
-	finalCom, fileName, fileType, savePath, exposure, awb, imgfx, meteringMode, simpleCommand string
+	//General Booleans
+	AWBG, fullScreenPreview         bool
+	horizontalFlip, previewPicture  bool
+	verticalFlip, videoStablization bool
+	ROI, simpleCapture              bool
+	//Photo Specific
+	captureVerbose, latest, timeOut bool
+	raw                             bool
+	//General Floats
+	blueAWBG, redAWBG float64
+	//General Int32
+	brightness, cameraSelection         int16
+	channelU, channelY, contrast, EV    int16
+	ISO, mode, opacity, px, py, pw, ph  int16
+	saturation, sharpness, shutterSpeed int16
+	//Photo Specific
+	photoWidth, photoHeight, jpgQuality int16
+	timeLength, timeOutLength           int16
+	//General Strings
+	Annotate, AWB, dynamicRangeCompression string
+	exposure, finalCom, imageEffects, fileType
+	meteringMode, savePath       string
+	simpleCommand                          string
+	//Photo Specific
+	latestFileName, fileName, thumb, encoding string
 }
 
 func New(path, name, fType string) *Camera {
@@ -48,7 +70,7 @@ func (c *Camera) Preview(b bool) *Camera {
 	return c
 }
 
-func (c *Camera) PreviewSize(x, y, w, h int) *Camera {
+func (c *Camera) PreviewSize(x, y, w, h int16) *Camera {
 	c.px = x
 	c.py = y
 	c.pw = w
