@@ -25,7 +25,9 @@ type Camera struct {
 	ROI, simpleCapture              bool
 	//Photo Specific
 	captureVerbose, latest, timeOut bool
-	raw                             bool
+	raw, demo, penc                 bool
+	//Video Specific
+
 	//General Floats
 	blueAWBG, redAWBG float64
 	//General Int32
@@ -36,10 +38,11 @@ type Camera struct {
 	//Photo Specific
 	photoWidth, photoHeight, jpgQuality int16
 	timeLength, timeOutLength           int16
+	//Video Specific
+	frameRate int16
 	//General Strings
 	Annotate, AWB, dynamicRangeCompression string
-	exposure, finalCom, imageEffects, fileType
-	meteringMode, savePath       string
+	fileType, meteringMode, savePath       string
 	simpleCommand                          string
 	//Photo Specific
 	latestFileName, fileName, thumb, encoding string
