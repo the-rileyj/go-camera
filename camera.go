@@ -19,33 +19,36 @@ const (
 
 type Camera struct {
 	//General Booleans
-	AWBG, fullScreenPreview         bool
-	horizontalFlip, previewPicture  bool
-	verticalFlip, videoStablization bool
-	ROI, simpleCapture              bool
+	AWBG, fullScreenPreview, horizontalFlip bool
+	previewPicture, verticalFlip            bool
+	videoStablization, ROI, simpleCapture   bool
 	//Photo Specific
-	captureVerbose, latest, timeOut bool
-	raw, demo, penc                 bool
+	demo, keypress, latest, photoVerbose, raw bool
+	signal, timeOut                           bool
 	//Video Specific
-
+	inline, timed, videoVerbose, penc bool
 	//General Floats
 	blueAWBG, redAWBG float64
 	//General Int32
-	brightness, cameraSelection         int16
-	channelU, channelY, contrast, EV    int16
-	ISO, mode, opacity, px, py, pw, ph  int16
-	saturation, sharpness, shutterSpeed int16
-	//Photo Specific
-	photoWidth, photoHeight, jpgQuality int16
-	timeLength, timeOutLength           int16
-	//Video Specific
-	frameRate int16
+	brightness, cameraSelection         int32
+	channelU, channelY, contrast, EV    int32
+	ISO, mode, opacity, px, py, pw, ph  int32
+	saturation, sharpness, shutterSpeed int32
+	//Photo Specific Int32
+	photoWidth, photoHeight, jpgQuality int32
+	timeLength, timeOutLength           int32
+	//Video Specific Int32
+	bitRate, frameRate, videoWidth      int32
+	videoHeight, quantisation, h264Prof int32
+	timeOn, timeOff                     int32
 	//General Strings
 	Annotate, AWB, dynamicRangeCompression string
-	fileType, meteringMode, savePath       string
-	simpleCommand                          string
-	//Photo Specific
-	latestFileName, fileName, thumb, encoding string
+	fileName, fileType, meteringMode       string
+	savePath, simpleCommand                string
+	//Photo Specific Strings
+	photoEncoding, latestFileName, thumb string
+	exif                                 string
+	//Video Specific Strings
 }
 
 func New(path, name, fType string) *Camera {
